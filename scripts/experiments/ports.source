@@ -1,0 +1,11 @@
+# definition of the ports used in the experiments
+# this assures that the same ports are used on the other VMs for callbacks
+#
+# version 2018-11-07
+
+export memcached_port=11211
+export middleware_port=11311
+export client_callback_port=11411
+export middleware_ready_callback_port=11511
+export middleware_callback_port=11611
+export server_callback_port=11711

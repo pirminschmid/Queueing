@@ -1,0 +1,8 @@
+# short script that connects to server VMs
+# should be called using source (.)
+# version 2018-10-28, Pirmin Schmid
+
+echo "\ncheck ssh connections to servers: all must respond"
+ssh $s6 "echo hello from s6 at $s6"
+ssh $s7 "echo hello from s7 at $s7"
+ssh $s8 "echo hello from s8 at $s8"

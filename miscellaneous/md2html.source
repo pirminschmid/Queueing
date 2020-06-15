@@ -1,0 +1,8 @@
+# mainly a summary how pandoc is used to create the html file
+# see pandoc documentation on https://pandoc.org
+# version 2018-11-15, Pirmin Schmid
+
+echo "this script expects to be sourced (.) from the root folder of this git repo"
+cmd="pandoc -t html --css=miscellaneous/pandoc_css.css -s DESIGN_AND_TECHNICAL_NOTES.md -o DESIGN_AND_TECHNICAL_NOTES.html"
+echo "running '$cmd'"
+$cmd

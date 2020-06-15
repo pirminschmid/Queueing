@@ -1,0 +1,18 @@
+# installs the basic software as indicated
+# it is sourced using .
+# screen and tmux are already installed on the vm
+sudo apt update
+sudo apt upgrade
+sudo apt install memcached git unzip ant openjdk-8-jdk
+sudo apt install build-essential autoconf automake libpcre3-dev libevent-dev pkg-config zlib1g-dev
+sudo apt install dstat iperf htop python-pip
+pip install pssh
+wget https://github.com/RedisLabs/memtier_benchmark/archive/master.zip
+unzip master.zip
+cd memtier_benchmark-master
+autoreconf -ivf
+./configure
+make
+sudo make install
+cd ..
+sudo service memcached stop

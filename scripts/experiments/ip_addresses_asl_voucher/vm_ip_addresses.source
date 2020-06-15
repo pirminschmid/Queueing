@@ -1,0 +1,20 @@
+# IP addresses of the VMs in the azure account with the ASL voucher.
+#
+# version 2018-11-24, Pirmin Schmid
+
+# clients
+export c1=10.0.0.7
+export c2=10.0.0.4
+export c3=10.0.0.6
+
+# middleware
+export m4=10.0.0.11
+export m5=10.0.0.10
+
+# servers
+export s6=10.0.0.5
+export s7=10.0.0.9
+export s8=10.0.0.8
+
+# control/admin VM
+export x9=10.0.0.12

@@ -1,0 +1,48 @@
+# this script is called by an experiment script (e.g. e610)
+# to run iperf measurements with the designated configuration (see filename)
+# note: separate measurements are done for sequential and parallel measurments of the bandwidths
+#
+# result files are stored at the defined locations of the experiment
+#
+# version 2018-11-01, Pirmin Schmid
+
+for iteration in 1 2 3 4; do
+    # run iperf to measure bandwidth -- sequential testing; each iperf server started individually to avoid observed timeouts
+    # data flows measured separately to have consistency in the naming of the data files (see parallel measurements)
+    # write-only data flow direction
+    echo "\n--- ${r}: run iperf iteration $iteration :: sequential mode :: client --> servers ---"
+    ssh $s6 "sh $run_path/run_iperf_server_side.sh $r $iteration seq" &
+    python3 wait_for_callbacks.py $x9 $server_callback_port 1
+    ssh $c1 "sh $run_path/run_iperf_connect_to_one_server.sh $r $iteration seq s1 $s6"
+    ssh $s6 "killall iperf"
+
+    ssh $s7 "sh $run_path/run_iperf_server_side.sh $r $iteration seq" &
+    python3 wait_for_callbacks.py $x9 $server_callback_port 1
+    ssh $c1 "sh $run_path/run_iperf_connect_to_one_server.sh $r $iteration seq s2 $s7"
+    ssh $s7 "killall iperf"
+
+    # read-only data flow direction
+    echo "\n--- ${r}: run iperf iteration $iteration :: sequential mode :: client <-- servers ---"
+    ssh $c1 "sh $run_path/run_iperf_server_side.sh $r $iteration seq" &
+    python3 wait_for_callbacks.py $x9 $server_callback_port 1
+    ssh $s6 "sh $run_path/run_iperf_connect_to_one_server.sh $r $iteration seq c1 $c1"
+    ssh $s7 "sh $run_path/run_iperf_connect_to_one_server.sh $r $iteration seq c1 $c1"
+    ssh $c1 "killall iperf"
+
+    # run iperf to measure bandwidth -- parallel testing simulating ...
+    # ... "write-only" load
+    echo "\n--- ${r}: run iperf iteration $iteration :: parallel mode :: client --> servers ---"
+    pssh -H $s6 -H $s7 "sh $run_path/run_iperf_server_side.sh $r $iteration par" &
+    python3 wait_for_callbacks.py $x9 $server_callback_port 2
+    pssh -H $c1 "sh $run_path/run_iperf_connect_to_two_servers.sh $r $iteration par s1 $s6 s2 $s7" &
+    python3 wait_for_callbacks.py $x9 $client_callback_port 1
+    pssh -H $s6 -H $s7 "killall iperf"
+
+    # ... "read-only" load
+    echo "\n--- ${r}: run iperf iteration $iteration :: parallel mode :: client <-- servers ---"
+    pssh -H $c1 "sh $run_path/run_iperf_server_side.sh $r $iteration par" &
+    python3 wait_for_callbacks.py $x9 $server_callback_port 1
+    pssh -H $s6 -H $s7 "sh $run_path/run_iperf_connect_to_one_server.sh $r $iteration par c1 $c1" &
+    python3 wait_for_callbacks.py $x9 $client_callback_port 2
+    pssh -H $c1 "killall iperf"
+done

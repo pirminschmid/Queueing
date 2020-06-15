@@ -1,0 +1,23 @@
+# IP addresses of the VMs in my private azure account.
+# It is used for testing purpose after initial realization that the VMs are very expensive.
+# Its setup is identical to the ASL account with the
+# identical deployment json file and install script.
+#
+# version 2018-11-05, Pirmin Schmid
+
+# clients
+export c1=10.0.0.11
+export c2=10.0.0.6
+export c3=10.0.0.7
+
+# middleware
+export m4=10.0.0.12
+export m5=10.0.0.4
+
+# servers
+export s6=10.0.0.5
+export s7=10.0.0.9
+export s8=10.0.0.8
+
+# control/admin VM
+export x9=10.0.0.10

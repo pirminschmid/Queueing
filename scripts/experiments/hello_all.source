@@ -1,0 +1,8 @@
+# short script that connects to all VMs
+# should be called using source (.)
+# version 2018-10-28, Pirmin Schmid
+
+echo "\ncheck ssh connections to all VMs: all must respond"
+. ./hello_clients.source
+. ./hello_middlewares.source
+. ./hello_servers.source

@@ -1,0 +1,7 @@
+# short script that connects to middleware VMs
+# should be called using source (.)
+# version 2018-10-28, Pirmin Schmid
+
+echo "\ncheck ssh connections to middlewares: all must respond"
+ssh $m4 "echo hello from m4 at $m4"
+ssh $m5 "echo hello from m5 at $m5"

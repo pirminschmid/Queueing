@@ -1,0 +1,23 @@
+# Unfortunately, using DNS addresses leads to rare but occuring
+# error: Temporary failure in name resolution errors in memtier
+#
+# not used after testing
+#
+# version 2018-11-05, Pirmin Schmid
+
+# clients
+export c1=client1
+export c2=client2
+export c3=client3
+
+# middleware
+export m4=middleware1
+export m5=middleware2
+
+# servers
+export s6=server1
+export s7=server2
+export s8=server3
+
+# control/admin VM
+export x9=admin

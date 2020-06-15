@@ -1,0 +1,6 @@
+# short script that connects to c1 VM
+# should be called using source (.)
+# version 2018-10-28, Pirmin Schmid
+
+echo "\ncheck ssh connection to c1: must respond"
+ssh $c1 "echo hello from c1 at $c1"

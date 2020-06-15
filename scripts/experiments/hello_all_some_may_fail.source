@@ -1,0 +1,17 @@
+# short script that connects to all VMs
+# should be called using source (.)
+# version 2018-10-28, Pirmin Schmid
+
+echo "\ncheck ssh connections to all VMs"
+echo "note: only active VMs need to respond"
+echo "\nclients"
+ssh $c1 "echo hello from c1 at $c1"
+ssh $c2 "echo hello from c2 at $c2"
+ssh $c3 "echo hello from c3 at $c3"
+echo "\nmiddlewares"
+ssh $m4 "echo hello from m4 at $m4"
+ssh $m5 "echo hello from m5 at $m5"
+echo "\nservers"
+ssh $s6 "echo hello from s6 at $s6"
+ssh $s7 "echo hello from s7 at $s7"
+ssh $s8 "echo hello from s8 at $s8"
